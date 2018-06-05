@@ -45,6 +45,11 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = notebook.name
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        } else {
+            // Fallback on earlier versions
+        }
         navigationItem.rightBarButtonItem = editButtonItem
         setupFetchedResultsController()
     }

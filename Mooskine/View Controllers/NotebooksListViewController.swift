@@ -97,6 +97,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource{
     
     
     fileprivate func setupFetchedResultsController() {
+        
         let fetchRequest:NSFetchRequest<Notebook> = Notebook.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
