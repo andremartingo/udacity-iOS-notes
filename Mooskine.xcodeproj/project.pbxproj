@@ -18,6 +18,8 @@
 		03B2699E1F2F8AAA00C7433C /* NotebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269951F2F837C00C7433C /* NotebookCell.swift */; };
 		03B2699F1F2F8AAA00C7433C /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269961F2F837C00C7433C /* NoteCell.swift */; };
 		03B269A01F2F8AAD00C7433C /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269981F2F837C00C7433C /* Cell.swift */; };
+		307DA18120C97093000674F2 /* UpdateToAttributedStrings.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 307DA18020C97093000674F2 /* UpdateToAttributedStrings.xcmappingmodel */; };
+		307DA18320C970E3000674F2 /* UpdateToAttributedStringsPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DA18220C970E3000674F2 /* UpdateToAttributedStringsPolicy.swift */; };
 		30802F6F20C306BC009835A1 /* Mooskine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 30802F6D20C306BC009835A1 /* Mooskine.xcdatamodeld */; };
 		30802F7120C3139B009835A1 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30802F7020C3139B009835A1 /* DataController.swift */; };
 		30A894EF20C442ED00A80A91 /* NotebookExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A894EE20C442ED00A80A91 /* NotebookExtensions.swift */; };
@@ -54,6 +56,8 @@
 		03B269961F2F837C00C7433C /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		03B269981F2F837C00C7433C /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		3060825D20C7CE3E00C39F65 /* MooskineV2-attributedString.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MooskineV2-attributedString.xcdatamodel"; sourceTree = "<group>"; };
+		307DA18020C97093000674F2 /* UpdateToAttributedStrings.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = UpdateToAttributedStrings.xcmappingmodel; sourceTree = "<group>"; };
+		307DA18220C970E3000674F2 /* UpdateToAttributedStringsPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToAttributedStringsPolicy.swift; sourceTree = "<group>"; };
 		30802F6E20C306BC009835A1 /* Mooskine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mooskine.xcdatamodel; sourceTree = "<group>"; };
 		30802F7020C3139B009835A1 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		30A894EE20C442ED00A80A91 /* NotebookExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookExtensions.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				30A894ED20C442D100A80A91 /* Managed Object Extensions */,
 				30802F6D20C306BC009835A1 /* Mooskine.xcdatamodeld */,
 				30802F7020C3139B009835A1 /* DataController.swift */,
+				307DA18020C97093000674F2 /* UpdateToAttributedStrings.xcmappingmodel */,
+				307DA18220C970E3000674F2 /* UpdateToAttributedStringsPolicy.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,12 +315,14 @@
 			files = (
 				039B105C1EDC5469002EA94F /* AppDelegate.swift in Sources */,
 				03B2699E1F2F8AAA00C7433C /* NotebookCell.swift in Sources */,
+				307DA18120C97093000674F2 /* UpdateToAttributedStrings.xcmappingmodel in Sources */,
 				30802F6F20C306BC009835A1 /* Mooskine.xcdatamodeld in Sources */,
 				03B2699B1F2F8AA100C7433C /* NotebooksListViewController.swift in Sources */,
 				30802F7120C3139B009835A1 /* DataController.swift in Sources */,
 				03B2699C1F2F8AA100C7433C /* NoteDetailsViewController.swift in Sources */,
 				03B269A01F2F8AAD00C7433C /* Cell.swift in Sources */,
 				30A894F120C4431000A80A91 /* NoteExtensions.swift in Sources */,
+				307DA18320C970E3000674F2 /* UpdateToAttributedStringsPolicy.swift in Sources */,
 				03B2699D1F2F8AA100C7433C /* NotesListViewController.swift in Sources */,
 				30A894EF20C442ED00A80A91 /* NotebookExtensions.swift in Sources */,
 				03B2699F1F2F8AAA00C7433C /* NoteCell.swift in Sources */,
