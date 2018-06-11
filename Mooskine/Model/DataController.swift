@@ -10,22 +10,35 @@ import Foundation
 import CoreData
 
 class DataController {
-    let persistentContainer: NSPersistentContainer
+    let persistentContainer:NSPersistentContainer
     
-    var viewContext: NSManagedObjectContext{
+    var viewContext:NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    init(modelName:String){
-        persistentContainer = NSPersistentContainer(name:modelName)
+    let backgroundContext:NSManagedObjectContext!
+    
+    init(modelName:String) {
+        persistentContainer = NSPersistentContainer(name: modelName)
+        
+        backgroundContext = persistentContainer.newBackgroundContext()
     }
     
-    func load(completion: (()-> Void)?=nil){
-        persistentContainer.loadPersistentStores { (storeDescription, error) in
-            guard error == nil else{
+    func configureContexts() {
+        viewContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+    }
+    
+    func load(completion: (() -> Void)? = nil) {
+        persistentContainer.loadPersistentStores { storeDescription, error in
+            guard error == nil else {
                 fatalError(error!.localizedDescription)
             }
-            self.autoSaveViewContext(interval: 3)
+            self.autoSaveViewContext()
+            self.configureContexts()
             completion?()
         }
     }

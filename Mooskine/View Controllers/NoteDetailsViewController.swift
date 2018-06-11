@@ -7,24 +7,28 @@
 //
 
 import UIKit
+import CoreData
 
 class NoteDetailsViewController: UIViewController {
     /// A text view that displays a note's text
     @IBOutlet weak var textView: UITextView!
-
+    
     /// The note being displayed and edited
     var note: Note!
-
+    
+    var dataController : DataController!
+    
+    var saveObserverToken: Any?
     /// A closure that is run when the user asks to delete the current note
     var onDelete: (() -> Void)?
-
+    
     /// A date formatter for the view controller's title text
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateStyle = .medium
         return df
     }()
-
+    
     /// The accessory view used when displaying the keyboard
     var keyboardToolbar: UIToolbar?
     
@@ -39,8 +43,14 @@ class NoteDetailsViewController: UIViewController {
         // keyboard toolbar configuration
         configureToolbarItems()
         configureTextViewInputAccessoryView()
+        addSaveNotificationObserver()
     }
-
+    
+    deinit {
+        removeSaveNotificationObserver()
+        
+    }
+    
     @IBAction func deleteNote(sender: Any) {
         presentDeleteNotebookAlert()
     }
@@ -56,7 +66,7 @@ extension NoteDetailsViewController {
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: deleteHandler))
         present(alert, animated: true, completion: nil)
     }
-
+    
     func deleteHandler(alertAction: UIAlertAction) {
         onDelete?()
     }
@@ -123,7 +133,7 @@ extension NoteDetailsViewController {
             .foregroundColor: UIColor.red,
             .underlineStyle: 1,
             .underlineColor:  UIColor.red,
-        ]
+            ]
         newText.addAttributes(attributes,range: textView.selectedRange)
         let selectedTextRange = textView.selectedTextRange
         textView.attributedText = newText
@@ -132,16 +142,29 @@ extension NoteDetailsViewController {
         try? note.managedObjectContext?.save()
     }
     
+    //Perform on background
     @IBAction func cowTapped(sender: Any) {
+        let backgroundContext:NSManagedObjectContext! = dataController?.backgroundContext
+        
         let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
+        
         let selectedRange = textView.selectedRange
         let selectedText = textView.attributedText.attributedSubstring(from: selectedRange)
-        let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy",size:56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
-        newText.replaceCharacters(in: selectedRange, with: cowText)
-        textView.attributedText = newText
-        textView.selectedRange = NSMakeRange(selectedRange.location, 1)
-        note.attributedText = textView.attributedText
-        try? note.managedObjectContext?.save()
+        
+        let noteID = note.objectID
+        
+        dataController?.backgroundContext.perform {
+            let backgroundNote = backgroundContext.object(with: noteID) as! Note
+            
+            let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
+            
+            sleep(5)
+            
+            newText.replaceCharacters(in: selectedRange, with: cowText)
+            
+            backgroundNote.attributedText = newText
+            try? backgroundContext.save()
+        }
     }
     
     // MARK: Helper methods for actions
@@ -157,5 +180,24 @@ extension NoteDetailsViewController {
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension NoteDetailsViewController{
+    
+    func addSaveNotificationObserver(){
+        removeSaveNotificationObserver()
+        saveObserverToken = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: dataController.viewContext, queue: nil, using: handleSaveNotification(notification:))
+    }
+    
+    func removeSaveNotificationObserver(){
+        if let token = saveObserverToken{
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    func handleSaveNotification(notification: Notification){
+        DispatchQueue.main.async {
+            self.textView.attributedText = self.note.attributedText
+        }
     }
 }
